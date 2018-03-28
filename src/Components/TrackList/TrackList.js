@@ -15,15 +15,15 @@ class TrackList extends React.Component {
   render() {
     return (
       <div className="TrackList">
-        {
-          this.props.tracks.map(track => {
-            return <Track track={track}
-                          key={track.id}
-                          onAdd={this.props.onAdd}
-                          isRemoval={this.props.isRemoval}
-                          onRemove={this.props.onRemove} />
-          })
-        }
+// I've done a lot of reasearch and debugging but I really can't figure out this part...
+// TypeError: Cannot read property 'map' of undefined
+      {this.props.tracks.map(track => {
+          return <Track track={track}
+                        key={track.id}
+                        onAdd={this.props.onAdd}
+                        onRemove={this.props.onRemove} />
+        })
+      }
       </div>
     );
   }
