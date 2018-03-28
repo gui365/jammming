@@ -5,6 +5,7 @@ import Playlist from '../Playlist/Playlist';
 import Spotify from '../../util/Spotify';
 import './App.css';
 
+
 class App extends React.Component {
   constructor(props){
     super(props);
@@ -13,6 +14,7 @@ class App extends React.Component {
       playlistName: 'New Playlist',
       playlistTracks: []
      };
+
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
@@ -27,14 +29,15 @@ class App extends React.Component {
   }
 
   savePlaylist() {
-    let trackURIs = this.state.playlistTracks.map(track => track.uri);
+    const trackURIs = this.state.playlistTracks.map(track => track.uri);
 
-    Spotify.savePlaylist(this.state.playlistName, trackURIs);
-    this.setState({
-      playlistName: 'New Playlist',
-      searchResults: []
-    })
+    Spotify.savePlaylist(this.state.playlistName, trackURIs).then(() => {
+      this.setState({
+        playlistName: 'New Playlist',
+        playlistTracks: []
 
+      });
+    });
   }
 
   updatePlaylistName(name) {
@@ -64,7 +67,7 @@ class App extends React.Component {
             onSearch={this.search}/>
           <div className="App-playlist">
             <SearchResults
-              searchResults={this.state.searchResult}
+              searchResults={this.state.searchResults}
               onAdd={this.addTrack}
               />
             <Playlist
